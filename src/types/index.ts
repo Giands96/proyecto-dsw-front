@@ -21,9 +21,12 @@ export interface Pasaje {
   usuarioCompradorId: string;
   nombrePasajero: string;
   costo: number;
+  destino: string;
   qrData: string;
   createdAt: string;
 }
+
+
 
 export interface Usuario {
   id: string;

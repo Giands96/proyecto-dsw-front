@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PasajesService } from '@/services/api';
 import { Pasaje } from '@/types';
+import { Viaje } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
@@ -40,6 +41,7 @@ export default function DashboardPage() {
               <CardHeader className="w-full text-center">
                 <CardTitle>{p.nombrePasajero}</CardTitle>
                 <p className="text-sm text-gray-500">ID: {p.id.substring(0,8)}</p>
+                <span className="text-sm text-gray-600">Destino: {p.destino}</span>
               </CardHeader>
               <CardContent className="flex flex-col items-center gap-4">
                 <img src={`data:image/png;base64,${p.qrData}`} alt="QR Code" className="w-48 h-48 border p-2" />
