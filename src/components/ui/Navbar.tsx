@@ -6,8 +6,11 @@ import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/constants/routes';
 
 export function Navbar() {
-  const { isAuthenticated, nombre, logout } = useAuthStore();
   const router = useRouter();
+  const { isAuthenticated, nombre, logout, rol, _hasHydrated } = useAuthStore();
+  const isAdmin = rol === 'Admin';
+  if (!_hasHydrated) return null;
+  
 
   const handleLogout = () => {
     logout();
@@ -17,19 +20,38 @@ export function Navbar() {
   return (
     <nav className="border-b p-4 bg-white shadow-sm flex justify-between items-center sticky top-0 z-50">
       <Link href={ROUTES.HOME} className="text-xl font-bold text-blue-600">
-         BusTickets Perú
+        BusTickets Perú
       </Link>
+
       <div className="flex gap-4 items-center">
         {isAuthenticated ? (
           <>
-            <span className="text-sm">Hola, <b>{nombre}</b></span>
-            <Link href={ROUTES.DASHBOARD}><Button variant="outline">Mis Pasajes</Button></Link>
-            <Button variant="destructive" onClick={handleLogout}>Salir</Button>
+            <span className="text-sm">
+              Hola, <b>{nombre}</b>
+            </span>
+
+            {isAdmin ? (
+              <Link href={ROUTES.ADMIN.DASHBOARD}>
+                <Button variant="outline">Panel Admin</Button>
+              </Link>
+            ) : (
+              <Link href={ROUTES.DASHBOARD}>
+                <Button variant="outline">Mis Pasajes</Button>
+              </Link>
+            )}
+
+            <Button variant="destructive" onClick={handleLogout}>
+              Salir
+            </Button>
           </>
         ) : (
           <>
-            <Link href={ROUTES.AUTH.LOGIN}><Button variant="ghost">Ingresar</Button></Link>
-            <Link href={ROUTES.AUTH.REGISTER}><Button>Registrarse</Button></Link>
+            <Link href={ROUTES.AUTH.LOGIN}>
+              <Button variant="ghost">Ingresar</Button>
+            </Link>
+            <Link href={ROUTES.AUTH.REGISTER}>
+              <Button>Registrarse</Button>
+            </Link>
           </>
         )}
       </div>

@@ -19,8 +19,8 @@ export default function LoginPage() {
     try {
       const res = await AuthService.login(data.email, data.password);
       setAuth(res);
-      if(data.rol === 2)
-        router.push(ROUTES.DASHBOARD);
+      if(res.rol === 'Admin')
+        router.push(ROUTES.ADMIN.DASHBOARD);
       else
         router.push(ROUTES.HOME);
     } catch (error) {

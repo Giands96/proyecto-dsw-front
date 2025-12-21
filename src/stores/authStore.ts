@@ -5,11 +5,13 @@ import { Usuario } from "@/types/index";
 interface AuthState extends Partial<Usuario> {
     isAuthenticated: boolean;
     token?: string;
+    _hasHydrated: boolean;
 }   
 
 interface AuthActions {
     setAuth: (userData: Usuario) => void;
     logout: () => void;
+    setHasHydrated: (state: boolean) => void; 
 }
 
 export const useAuthStore = create<AuthState & AuthActions>()(
@@ -20,9 +22,11 @@ export const useAuthStore = create<AuthState & AuthActions>()(
       nombre: undefined,
       rol: undefined,
       isAuthenticated: false,
+      isAdmin: false,
+      _hasHydrated: false, 
 
       setAuth: (userData) =>
-        set({ ...userData, isAuthenticated: true }),
+        set({ ...userData, isAuthenticated: true}),
 
       logout: () =>
         set({
@@ -32,10 +36,15 @@ export const useAuthStore = create<AuthState & AuthActions>()(
           rol: undefined,
           isAuthenticated: false,
         }),
+        
+      setHasHydrated: (state) => set({ _hasHydrated: state }),
     }),
     {
       name: 'auth-storage',
       storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
     }
   )
 );

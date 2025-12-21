@@ -3,8 +3,16 @@ export interface Viaje {
   destino: string;
   fechaHora: string;
   costoBase: number;  
-  asientosDisponibles: number;
-  createdAt: string;   
+  capacidadMax: number;
+  asientosDisponibles: number; 
+  createdAt: string;
+}
+
+export interface CreateViajeDto {
+    destino: string;
+    fechaHora: string;
+    costoBase: number;
+    capacidadMax: number;
 }
 
 export interface Pasaje {
@@ -21,6 +29,6 @@ export interface Usuario {
   id: string;
   nombre: string;
   email: string;
-  rol: number;
+  rol: string;
   createdAt: string;
 }
