@@ -24,7 +24,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <Card className="w-[350px] shadow-lg">
+    <Card className="w-[350px] shadow-lg flex justify-center mx-auto mt-20">
       <CardHeader>
         <CardTitle className="text-center text-2xl font-bold">Crear Cuenta</CardTitle>
       </CardHeader>

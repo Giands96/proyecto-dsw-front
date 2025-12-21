@@ -6,6 +6,8 @@ import { Pasaje } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
+import Link from 'next/link';
+import { ROUTES } from '@/constants/routes';
 
 export default function DashboardPage() {
   const [pasajes, setPasajes] = useState<Pasaje[]>([]);
@@ -22,7 +24,12 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 container mx-auto py-8">
+      <Link href={ROUTES.HOME} className="mt-6 inline-block">
+        <Button variant="ghost" className="flex items-center gap-2">
+          Volver al Inicio
+        </Button>
+      </Link>
       <h1 className="text-3xl font-bold">Mis Pasajes Comprados</h1>
       {pasajes.length === 0 ? (
         <p className="text-gray-500">Aún no has comprado ningún pasaje.</p>
@@ -43,7 +50,9 @@ export default function DashboardPage() {
             </Card>
           ))}
         </div>
+        
       )}
+      
     </div>
   );
 }

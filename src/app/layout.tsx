@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="es">
       <body>
         <Navbar />
-        <main className="container mx-auto py-8">
+        <main className="mx-auto">
           <AuthGuard>{children}</AuthGuard>
         </main>
       </body>

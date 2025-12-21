@@ -19,14 +19,17 @@ export default function LoginPage() {
     try {
       const res = await AuthService.login(data.email, data.password);
       setAuth(res);
-      router.push(ROUTES.HOME);
+      if(data.rol === 2)
+        router.push(ROUTES.DASHBOARD);
+      else
+        router.push(ROUTES.HOME);
     } catch (error) {
       alert('Credenciales inválidas o error de conexión');
     }
   };
 
   return (
-    <Card className="w-[350px] shadow-lg">
+    <Card className="w-[350px] shadow-lg flex justify-center mx-auto mt-20">
       <CardHeader>
         <CardTitle className="text-center text-2xl font-bold">Iniciar Sesión</CardTitle>
       </CardHeader>
