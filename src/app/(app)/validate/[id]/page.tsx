@@ -15,20 +15,20 @@ export default function ValidatePage() {
   const fechaEsValida = fechaViaje && !isNaN(fechaViaje.getTime());
 
   useEffect(() => {
-    if (id) {
-      PasajesService.validar(id as string)
-        .then((res) => {
-          // El backend debe retornar un objeto con los datos del pasaje si es válido
-          if (res) {
-            setPasajeData(res);
-            setStatus('success');
-          } else {
-            setStatus('error');
-          }
-        })
-        .catch(() => setStatus('error'));
-    }
-  }, [id]);
+  if (!id) return;
+
+  PasajesService.validar(id as string)
+    .then((res) => {
+      if (res?.isValid) {
+        setPasajeData(res);
+        setStatus('success');
+      } else {
+        setStatus('error');
+      }
+    })
+    .catch(() => setStatus('error'));
+}, [id]);
+
 
   return (
     <div className="flex flex-col items-center justify-center p-4">

@@ -68,7 +68,7 @@ export const PasajesService = {
   
     validar: async (id: string) => {
     try {
-      const res = await api.post('/pasajes/validar', { qrContent: id });
+      const res = await api.get(`/pasajes/validar/${id}`);
       return res.data;
     } catch (error) {
       console.error("Error validando pasaje:", error);
