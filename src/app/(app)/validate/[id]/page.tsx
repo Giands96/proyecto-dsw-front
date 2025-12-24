@@ -5,11 +5,14 @@ import { useParams } from 'next/navigation';
 import { PasajesService } from '@/services/api';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { format } from 'date-fns';
 
 export default function ValidatePage() {
   const { id } = useParams();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [pasajeData, setPasajeData] = useState<any>(null);
+  const fechaViaje = pasajeData?.fechaHora ? new Date(pasajeData.fechaHora) : null;
+  const fechaEsValida = fechaViaje && !isNaN(fechaViaje.getTime());
 
   useEffect(() => {
     if (id) {
@@ -48,7 +51,9 @@ export default function ValidatePage() {
               <div className="bg-gray-50 p-4 rounded-lg w-full text-left space-y-2 border">
                 <p><strong>Pasajero:</strong> {pasajeData?.nombrePasajero}</p>
                 <p><strong>Ruta:</strong> {pasajeData?.origen} → {pasajeData?.destino}</p>
-                <p><strong>Fecha:</strong> {new Date(pasajeData?.fechaSalida).toLocaleString()}</p>
+                <p>
+                  <strong>Fecha:</strong> {fechaEsValida ? format(fechaViaje, "dd/MM/yyyy HH:mm") : 'Fecha no disponible'}
+                </p>
                 <p className="text-xs text-gray-400">ID: {id}</p>
               </div>
             </div>
